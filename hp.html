@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Code Blooded - Skincare</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff0f5;
+      color: #5a3e4d;
+    }
+
+    header {
+      background-color: #f8c8dc;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    header p {
+      margin-top: 5px;
+      font-size: 1.2em;
+      color: #7a5567;
+    }
+
+    .main-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .nav-buttons button {
+      background-color: #f4a7b9;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #f28dad;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product-card {
+      background-color: #ffe4ec;
+      border-radius: 15px;
+      padding: 15px;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .product-card h3 {
+      margin: 10px 0 5px;
+    }
+
+    .product-card p {
+      font-size: 0.9em;
+      color: #6a4f5c;
+    }
+
+    .why-choose {
+      background-color: #ffdbe7;
+      margin: 30px;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #f4a7b9;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1000;
+    }
+
+    .sidebar a {
+      padding: 10px 30px;
+      text-decoration: none;
+      font-size: 1.2em;
+      color: white;
+      display: block;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: #f28dad;
+    }
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 25px;
+      font-size: 2em;
+    }
+
+    .open-sidebar {
+      font-size: 1.5em;
+      cursor: pointer;
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      color: #5a3e4d;
+      background: none;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">×</a>
+    <a href="#">Home</a>
+    <a href="#">Profile</a>
+    <a href="#">My Cart</a>
+    <a href="#">Services</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <button class="open-sidebar" onclick="openSidebar()">☰</button>
+    <h1>Code Blooded</h1>
+    <p>Glowing Skin, One Click Away</p>
+  </header>
+
+  <!-- Image -->
+  <img class="main-image" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1350&q=80" alt="Skincare Image">
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button>Search</button>
+    <button>Bestseller</button>
+    <button>Offers</button>
+    <button>For You</button>
+  </div>
+
+  <!-- Products -->
+  <div class="products">
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200x150.png?text=Cleanser" alt="Cleanser">
+      <h3>Gentle Cleanser</h3>
+      <p>$12.99 - Perfect for sensitive skin</p>
+    </div>
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200x150.png?text=Moisturizer" alt="Moisturizer">
+      <h3>Hydrating Moisturizer</h3>
+      <p>$18.99 - Deep hydration formula</p>
+    </div>
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200x150.png?text=Toner" alt="Toner">
+      <h3>Refreshing Toner</h3>
+      <p>$10.50 - Balances and soothes</p>
+    </div>
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200x150.png?text=Serum" alt="Serum">
+      <h3>Vitamin C Serum</h3>
+      <p>$22.00 - Brightens your skin</p>
+    </div>
+    <div class="product-card">
+      <img src="https://via.placeholder.com/200x150.png?text=SPF" alt="SPF">
+      <h3>Daily SPF 50</h3>
+      <p>$15.99 - Protects and nourishes</p>
+    </div>
+  </div>
+
+  <!-- Why Choose Us -->
+  <div class="why-choose">
+    <h2>Why Choose Code Blooded?</h2>
+    <p>
+      At Code Blooded, we believe skincare should be simple, safe, and effective. Our products are dermatologically tested, cruelty-free, and made with love using clean ingredients. With personalized recommendations, unbeatable offers, and fast delivery, we're your perfect skincare partner.
+    </p>
+  </div>
+
+  <!-- JavaScript for Sidebar -->
+  <script>
+    function openSidebar() {
+      document.getElementById("mySidebar").style.width = "250px";
+    }
+
+    function closeSidebar() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
+  </script>
+
+</body>
+</html>

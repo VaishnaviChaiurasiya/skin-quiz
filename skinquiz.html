@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Type Quiz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: #fdfaf0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            padding: 20px 0;
+        }
+
+        .quiz-container {
+            width: 90%;
+            max-width: 650px;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            margin: 20px 0;
+        }
+
+        .quiz-container:hover {
+            transform: scale(1.02);
+        }
+
+        h2 {
+            color: #333;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #e67e76;
+            font-size: 24px;
+            margin-top: 30px;
+        }
+
+        p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .button {
+            background: #e67e76;
+            color: white;
+            border: none;
+            padding: 16px 28px;
+            cursor: pointer;
+            border-radius: 25px;
+            margin-top: 20px;
+            font-size: 20px;
+            transition: 0.3s;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .button:hover {
+            background: #d9534f;
+        }
+
+        .options label {
+            display: block;
+            background: #f8e1db;
+            padding: 16px;
+            border-radius: 12px;
+            margin: 12px 0;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            position: relative;
+        }
+
+        .options label:hover {
+            background: #f4b7a8;
+            color: white;
+        }
+
+        .options input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .options input[type="radio"]:checked+label {
+            background: #e67e76;
+            color: white;
+        }
+
+        .dialogue-box {
+            background: #f8e1db;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 12px 0;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card {
+            background: #fff9f7;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-card h4 {
+            color: #e67e76;
+            margin-top: 0;
+        }
+
+        .back-button {
+            background: transparent;
+            color: #e67e76;
+            border: 2px solid #e67e76;
+            margin-right: 10px;
+        }
+
+        .back-button:hover {
+            background: #f8e1db;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: #e67e76;
+            transition: width 0.3s;
+        }
+
+        .redirect-button {
+            background: #5a9bd5;
+        }
+
+        .redirect-button:hover {
+            background: #4a8bc5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Welcome Page -->
+    <div class="quiz-container" id="page1">
+        <h2>Welcome to the Skin Type Quiz</h2>
+        <p>Find out your skin type and get personalized skincare recommendations!</p>
+        <button class="button" onclick="nextPage(2)">Start Quiz</button>
+    </div>
+
+    <!-- Skin Type Question -->
+    <div class="quiz-container" id="page2" style="display: none;">
+        <div class="progress-bar">
+            <div class="progress" style="width: 16.66%"></div>
+        </div>
+        <h2>Discover Your Skin Type</h2>
+        <div class="question">
+            <p>How does your skin feel after cleansing?</p>
+            <div class="options">
+                <input type="radio" name="q1" id="oily" value="oily">
+                <label for="oily">Oily/Shiny</label>
+
+                <input type="radio" name="q1" id="dry" value="dry">
+                <label for="dry">Tight/Dry</label>
+
+                <input type="radio" name="q1" id="combo" value="combo">
+                <label for="combo">Both (Oily T-zone, Dry Cheeks)</label>
+
+                <input type="radio" name="q1" id="normal" value="normal">
+                <label for="normal">Balanced/Comfortable</label>
+            </div>
+        </div>
+        <div class="button-group">
+            <button class="button back-button" onclick="nextPage(1)">Back</button>
+            <button class="button" onclick="goToConcernsPage()" id="nextBtn2" disabled>Next</button>
+        </div>
+    </div>
+
+    <!-- Skin Concerns Page -->
+    <div class="quiz-container" id="page3" style="display: none;">
+        <div class="progress-bar">
+            <div class="progress" style="width: 33.33%"></div>
+        </div>
+        <h2>Top Skin Concerns</h2>
+        <div id="skinConcerns"></div>
+        <div class="question">
+            <p>Select any additional concerns (optional):</p>
+            <div class="options">
+                <label><input type="checkbox" name="concerns" value="acne"> Acne/Breakouts</label>
+                <label><input type="checkbox" name="concerns" value="aging"> Fine Lines/Wrinkles</label>
+                <label><input type="checkbox" name="concerns" value="redness"> Redness/Irritation</label>
+                <label><input type="checkbox" name="concerns" value="darkSpots"> Dark Spots/Hyperpigmentation</label>
+            </div>
+        </div>
+        <div class="button-group">
+            <button class="button back-button" onclick="nextPage(2)">Back</button>
+            <button class="button" onclick="nextPage(4)">Next</button>
+        </div>
+    </div>
+
+    <!-- Sensitivity Question -->
+    <div class="quiz-container" id="page4" style="display: none;">
+        <div class="progress-bar">
+            <div class="progress" style="width: 50%"></div>
+        </div>
+        <h2>Is Your Skin?</h2>
+        <div class="question">
+            <div class="options">
+                <label><input type="radio" name="sensitivity" value="sensitive"> Sensitive (Easily irritated, red, or
+                    reactive)</label>
+                <label><input type="radio" name="sensitivity" value="normal"> Normal/Not particularly sensitive</label>
+            </div>
+        </div>
+        <div class="button-group">
+            <button class="button back-button" onclick="nextPage(3)">Back</button>
+            <button class="button" onclick="nextPage(5)" id="nextBtn4" disabled>Next</button>
+        </div>
+    </div>
+
+    <!-- Product Recommendations (Final Page) -->
+    <div class="quiz-container" id="page5" style="display: none;">
+        <div class="progress-bar">
+            <div class="progress" style="width: 100%"></div>
+        </div>
+        <h2>Your Personalized Recommendations</h2>
+        <div id="productRecommendations"></div>
+        <button class="button redirect-button" id="redirectBtn">See Detailed Description & Products</button>
+        <div class="button-group">
+            <button class="button back-button" onclick="nextPage(4)">Back</button>
+            <button class="button" onclick="nextPage(1)">Start Over</button>
+        </div>
+    </div>
+
+    <script>
+        // Store user responses
+        const userResponses = {
+            skinType: null,
+            concerns: [],
+            sensitivity: null
+        };
+
+        // Function to navigate between pages
+        function nextPage(pageNumber) {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById("page" + i).style.display = "none";
+            }
+            document.getElementById("page" + pageNumber).style.display = "block";
+
+            if (pageNumber === 5) {
+                showProductRecommendations();
+            }
+        }
+
+        // Function to handle the skin type question
+        function goToConcernsPage() {
+            const selectedOption = document.querySelector('input[name="q1"]:checked');
+            if (selectedOption) {
+                userResponses.skinType = selectedOption.value;
+                let concerns = {
+                    "oily": "<div class='dialogue-box'>Top concerns for oily skin: Acne, Enlarged Pores, Excess Shine.</div>",
+                    "dry": "<div class='dialogue-box'>Top concerns for dry skin: Flakiness, Redness, Tightness.</div>",
+                    "combo": "<div class='dialogue-box'>Top concerns for combination skin: Uneven Texture, Dry Patches, Oiliness.</div>",
+                    "normal": "<div class='dialogue-box'>Top concerns for normal skin: Maintaining balance, Prevention of future issues.</div>"
+                };
+                document.getElementById("skinConcerns").innerHTML = concerns[userResponses.skinType];
+                nextPage(3);
+            }
+        }
+
+        // Function to show product recommendations
+        function showProductRecommendations() {
+            const sensitivity = document.querySelector('input[name="sensitivity"]:checked').value;
+            userResponses.sensitivity = sensitivity;
+
+            // Get any additional concerns
+            userResponses.concerns = [];
+            document.querySelectorAll('input[name="concerns"]:checked').forEach(checkbox => {
+                userResponses.concerns.push(checkbox.value);
+            });
+
+            // Generate recommendations based on skin type and sensitivity
+            const recommendations = {
+                "oily": {
+                    "sensitive": {
+                        "cleanser": "Gentle foaming cleanser with niacinamide",
+                        "toner": "Alcohol-free toner with witch hazel and aloe vera",
+                        "moisturizer": "Oil-free gel moisturizer with hyaluronic acid"
+                    },
+                    "normal": {
+                        "cleanser": "Salicylic acid cleanser for deep cleaning",
+                        "toner": "Balancing toner with tea tree extract",
+                        "moisturizer": "Lightweight lotion with mattifying properties"
+                    }
+                },
+                "dry": {
+                    "sensitive": {
+                        "cleanser": "Creamy hydrating cleanser with ceramides",
+                        "toner": "Soothing toner with chamomile and rose water",
+                        "moisturizer": "Rich cream with shea butter and squalane"
+                    },
+                    "normal": {
+                        "cleanser": "Hydrating cleanser with hyaluronic acid",
+                        "toner": "Nourishing toner with glycerin and amino acids",
+                        "moisturizer": "Deeply hydrating cream with ceramides"
+                    }
+                },
+                "combo": {
+                    "sensitive": {
+                        "cleanser": "pH-balanced gel cleanser",
+                        "toner": "Soothing toner with centella asiatica",
+                        "moisturizer": "Lightweight cream that balances dry and oily areas"
+                    },
+                    "normal": {
+                        "cleanser": "Balancing cleanser with mild exfoliants",
+                        "toner": "Hydrating toner with panthenol",
+                        "moisturizer": "Dual-action moisturizer for combination skin"
+                    }
+                },
+                "normal": {
+                    "sensitive": {
+                        "cleanser": "Milk or lotion cleanser",
+                        "toner": "Soothing mist with thermal spring water",
+                        "moisturizer": "Lightweight but protective moisturizer"
+                    },
+                    "normal": {
+                        "cleanser": "Gentle daily cleanser",
+                        "toner": "Hydrating toner with antioxidants",
+                        "moisturizer": "Balanced moisturizer for maintenance"
+                    }
+                }
+            };
+
+            const skinType = userResponses.skinType;
+            const skinSensitivity = userResponses.sensitivity;
+            const rec = recommendations[skinType][skinSensitivity];
+
+            let html = `
+                <h3>Cleanser</h3>
+                <div class="product-card">
+                    <h4>${rec.cleanser}</h4>
+                    <p>Look for a ${skinSensitivity === 'sensitive' ? 'fragrance-free, gentle formula' : 'effective yet balanced formula'} that won't ${skinType === 'oily' ? 'over-strip' : 'dry out'} your skin.</p>
+                </div>
+                
+                <h3>Toner</h3>
+                <div class="product-card">
+                    <h4>${rec.toner}</h4>
+                    <p>This will help ${skinType === 'dry' ? 'add hydration and' : ''}${skinType === 'oily' ? 'control excess oil and' : ''} prepare your skin for better product absorption.</p>
+                </div>
+                
+                <h3>Moisturizer</h3>
+                <div class="product-card">
+                    <h4>${rec.moisturizer}</h4>
+                    <p>Essential for ${skinType === 'dry' ? 'locking in moisture' : skinType === 'oily' ? 'hydrating without clogging pores' : 'maintaining your skin\'s natural balance'}.</p>
+                </div>
+            `;
+
+            // Add additional recommendations based on concerns
+            if (userResponses.concerns.length > 0) {
+                html += `<h3>Additional Treatments</h3>`;
+
+                userResponses.concerns.forEach(concern => {
+                    if (concern === 'acne') {
+                        html += `
+                            <div class="product-card">
+                                <h4>Acne Treatment</h4>
+                                <p>Consider a spot treatment with ${skinSensitivity === 'sensitive' ? '2.5% benzoyl peroxide or sulfur' : '5% benzoyl peroxide or salicylic acid'}.</p>
+                            </div>
+                        `;
+                    } else if (concern === 'aging') {
+                        html += `
+                            <div class="product-card">
+                                <h4>Anti-Aging Serum</h4>
+                                <p>Look for products with ${skinSensitivity === 'sensitive' ? 'bakuchiol or peptides' : 'retinol or vitamin C'} to address fine lines and wrinkles.</p>
+                            </div>
+                        `;
+                    } else if (concern === 'redness') {
+                        html += `
+                            <div class="product-card">
+                                <h4>Redness Relief</h4>
+                                <p>Products with centella asiatica, niacinamide, or green tea extract can help calm irritation.</p>
+                            </div>
+                        `;
+                    } else if (concern === 'darkSpots') {
+                        html += `
+                            <div class="product-card">
+                                <h4>Brightening Treatment</h4>
+                                <p>Consider ${skinSensitivity === 'sensitive' ? 'azelaic acid or licorice root extract' : 'vitamin C or alpha arbutin'} to address hyperpigmentation.</p>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            document.getElementById("productRecommendations").innerHTML = html;
+
+            // Setup redirect button
+            document.getElementById("redirectBtn").onclick = function () {
+                switch (userResponses.skinType) {
+                    case 'oily':
+                        window.location.href = 'oilyskin.html';
+                        break;
+                    case 'dry':
+                        window.location.href = 'dryskin.html';
+                        break;
+                    case 'combo':
+                        window.location.href = 'comboskin.html';
+                        break;
+                    case 'normal':
+                        window.location.href = 'normalskin.html';
+                        break;
+                }
+            };
+        }
+
+        // Enable/disable next buttons based on selection
+        document.addEventListener('DOMContentLoaded', function () {
+            // For page 2
+            const radiosPage2 = document.querySelectorAll('input[name="q1"]');
+            radiosPage2.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    document.getElementById('nextBtn2').disabled = !document.querySelector('input[name="q1"]:checked');
+                });
+            });
+
+            // For page 4
+            const radiosPage4 = document.querySelectorAll('input[name="sensitivity"]');
+            radiosPage4.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    document.getElementById('nextBtn4').disabled = !document.querySelector('input[name="sensitivity"]:checked');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Milkshake&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ff9a9e, #fecfef);
+            font-family: 'Milkshake', cursive;
+        }
+        .profile-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            transition: 0.3s;
+            border: 2px solid #ff6b81;
+        }
+        .profile-card:hover {
+            transform: scale(1.02);
+        }
+        .profile-image-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ff6b81;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            overflow: hidden;
+            margin: 0 auto 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        .default-icon {
+            font-size: 40px;
+            color: #ff6b81;
+        }
+        .upload-btn {
+            background: #ff6b81;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin-top: 6px;
+            cursor: pointer;
+            border-radius: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            font-size: 12px;
+        }
+        .upload-btn:hover {
+            background: #e84362;
+        }
+        .input-group {
+            margin: 10px 0;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #ff6b81;
+            margin-bottom: 3px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #ff6b81;
+            border-radius: 6px;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #e84362;
+            box-shadow: 0 0 6px rgba(232, 67, 98, 0.3);
+        }
+        .save-btn {
+            background: #ff6b81;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .save-btn:hover {
+            background: #e84362;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <h2>Profile Info</h2>
+        <div class="profile-image-container" id="imageContainer">
+            <img src="" alt="Profile Image" class="profile-image" id="profilePreview">
+            <span class="default-icon" id="defaultIcon">👤</span>
+        </div>
+        <input type="file" id="imageUpload" accept="image/*" hidden>
+        <button class="upload-btn" onclick="document.getElementById('imageUpload').click();">Choose Image</button>
+        <div class="input-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Enter first name">
+        </div>
+        <div class="input-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Enter last name">
+        </div>
+        <div class="input-group">
+            <label>DOB</label>
+            <input type="date">
+        </div>
+        <div class="input-group">
+            <label>Username</label>
+            <input type="text" placeholder="Enter username">
+        </div>
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" placeholder="Enter email">
+        </div>
+        <div class="input-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="Enter phone number">
+        </div>
+        <button class="save-btn">Save</button>
+    </div>
+
+    <script>
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const imageUrl = URL.createObjectURL(file);
+                document.getElementById('profilePreview').src = imageUrl;
+                document.getElementById('profilePreview').style.display = 'block';
+                document.getElementById('defaultIcon').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
